@@ -1,0 +1,16 @@
+:css
+    IMG.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+    h3 {
+    white-space: pre-line
+    }
+.overview
+    %img.displayed{ src: @representative.photo,
+                    width: '500', height: '600' }
+    %h1.text-center= @representative.name
+    %h2.text-center= @representative.title
+    %h3.text-center= @representative.party
+    %h4.text-center~ @representative.address.split('\n').join "\n"
+    %h5.text-center= @representative.ocdid

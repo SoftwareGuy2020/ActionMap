@@ -1,0 +1,23 @@
+env:
+  secure: f+bPdR/b+E3iaqVf6yPwwFTCr2A9uEeFdREHwUOGCqBkg7T4mh7zkB13raWyA79i3kDNNHkFDb260IPsoNEU9NbdwuF8y1zX+1OdVQn4L5jtOP5dr7mCmugHnlrwKMnY0bVRj2c86vJbzRUnpa+VnDn/L+bpPalFRcFm3whJxlv5dddcLEPfapORbiWuZL94rhV916vVUwAlKLWQMOhQ18uY3x22E5pDd71NEoX1mxsJp57XwSAy4IUnu+CuVZz5ofIcMswwP6oV2EwGjE6YBoBNH3dz7ocUHwmyLwDLqejqLhpeIvsUeOUXxxFB18y/MZCLOTE3uIbkW7NaQQGxPdRfIKwbnTydiTdEqrESCQsGzkwFoTXmkYAjNiBL1yGcjFIkngeC7CoHDJJnrpyi94VV/lTa8Q7pR0yyPu28v8g4nLzKqDAK9DfJ/p0VHeh1/OK++0i8BdMT4qCFe7a1ys9jqlOJceGFCv0BaJvegVtRoJeRS74y5E5+nuiu3dF7YKsqWxBpt8X+5Tv2IxjYwcU9dwRYYHo6ImoU32qYmDDVPdrbxv20UApIrJNhO4VY7EkPoj0+tCs4Kizjx4LvdsjtEqmBRDls+pBw9NyHoIKhSn1ikf8ltAPLY5EhHsxVeYTfURKxnOIY9ss5BUFwp+BFg8MPVkFxr17Z5ouOGG8=
+language: ruby
+dist: focal
+rvm:
+- 2.6.5
+cache:
+  directories:
+  - node_modules
+  - vendor/bundle
+before_install:
+- gem install bundler:2.1.4
+- nvm install 12.13.1
+- npm install -g yarn@1.22.4
+before_script:
+- bundle install
+- yarn install
+script:
+- bundle exec rake db:drop
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec
+- bundle exec cucumber
